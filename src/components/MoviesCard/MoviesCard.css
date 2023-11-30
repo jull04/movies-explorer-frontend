@@ -1,0 +1,125 @@
+.movie-container {
+  width: 360px;
+  height: 319px;
+  background-color: #222;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-container {
+    width: 300px;
+    height: 271px;
+  }
+}
+
+.movie-title-container {
+  margin: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-title-container {
+    margin: 14px;
+  }
+}
+
+.movie-title {
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  margin: 0;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-title {
+    font-size: 12px;
+  }
+}
+
+.movie-time {
+  color: #8B8B8B;
+  text-align: right;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; 
+  margin: 0;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-time {
+    font-size: 10px;
+  }
+}
+
+.movie-image {
+  height: 200px;
+  background-image: url(../../images/film.png);
+  cursor: pointer;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-image {
+    width: 300px;
+    height: 168px;
+  }
+}
+
+.movie-button {
+  all: unset;
+  width: 100px;
+  height: 29px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #313131;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 11px; 
+  margin: 18px auto;
+  cursor: pointer;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-button {
+    margin-top: 14px;
+  }
+} 
+
+.movie-button-saved {
+  background-image: url(../../images/saved-button.svg);
+}
+
+.movie-delete-button {
+  background-image: url(../../images/delete-button.svg);
+  width: 100px;
+  height: 29px;
+  margin: 18px auto;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 30px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@media  screen and (max-width: 768px) {
+  .movie-delete-button {
+    margin-top: 14px;
+  }
+} 
+
+.movie-delete-button:hover {
+  opacity: 0.7;
+}
+
+.movie-button:hover {
+  opacity: 0.7;
+}

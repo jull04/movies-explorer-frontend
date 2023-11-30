@@ -1,0 +1,126 @@
+.promo {
+  background-color: #073042;
+  display: flex;
+  justify-content: space-between;
+  padding: 75px 70px;
+}
+
+@media (min-width: 768px) and (max-width: 1103px) {
+  .promo {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media  screen and (max-width: 767px) {
+  .promo {
+    flex-direction: column;
+    text-align: center;
+    padding: 70px 10px 30px;
+  }
+}
+
+.promo__title {
+  margin: 0;
+  padding: 0 0 36px 0;
+  width: 640px;
+  font-family: Inter;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@media (min-width: 768px) and (max-width: 1103px) {
+  .promo__title {
+    margin: 0 auto;
+    font-size: 40px;
+    line-height: 50px;
+    padding-bottom: 23px;
+  }
+}
+
+@media  screen and (max-width: 767px) {
+  .promo__title {
+    margin: 0 auto;
+    font-size: 30px;
+    line-height: 38px;
+    width: 300px;
+    letter-spacing: -1.2px;
+    padding-bottom: 24px;
+  }
+}
+
+.promo__subtitle {
+  margin: 0;
+  padding-bottom: 146px;
+  width: 310px;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) and (max-width: 1103px) {
+  .promo__subtitle {
+    margin: 0 auto;
+    padding-bottom: 92px;
+    width: 260px;
+  }
+}
+
+@media  screen and (max-width: 767px) {
+  .promo__subtitle {
+    margin: 0 auto;
+    width: 260px;
+    padding-bottom: 80px;
+  }
+}
+
+.promo__button {
+  margin: 0;
+  padding: 0;
+  width: 129px;
+  height: 36px;  
+  background-color: transparent;
+  border: initial;
+  border-radius: 3px;
+  border: 1px solid #FFF;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.promo__button:hover {
+  opacity: 0.7;
+}
+
+.promo__image {
+  background-image: url(../../images/planett.svg);
+  background-repeat: no-repeat;
+  margin: 0;
+  width: 310px;
+  height: 304px;
+}
+
+@media (min-width: 768px) and (max-width: 1103px) {
+  .promo__image {
+    order: -1;
+    margin: 70px auto 48px;
+  }
+}
+
+@media  screen and (max-width: 767px) {
+  .promo__image {
+    order: -1;
+    margin: 0 auto 44px;
+    width: 210px;
+    height: 206px;
+    background-size: cover;
+  }
+}
