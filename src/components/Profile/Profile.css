@@ -120,10 +120,6 @@
   padding: 0;
 }
 
-.profile__error_visible {
-  opacity: 1;
-}
-
 .profile__submit {
   width: 100%;
   height: 45px;

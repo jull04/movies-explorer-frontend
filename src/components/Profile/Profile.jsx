@@ -37,7 +37,7 @@ function Profile() {
           disabled={!isEditProfile}
         />
       </label>
-      <span className='profile__error profile__error_visible'>{errors.name}</span>
+      <span className='profile__error'>{errors.name}</span>
       <label className='profile__label'>
         <span className='profile__span'>E-mail</span>
         <input 
