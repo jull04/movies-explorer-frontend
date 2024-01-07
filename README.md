@@ -7,8 +7,13 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE
 
 ## Ссылка на фронтенд
 
-https://juls.diplom.nomoredomainsrocks.ru
+https://juls.diplom.nomoredomainsmonster.ru
 
 ## Ссылка на бэкенд
 
 https://api.juls.diplom.nomoredomainsrocks.ru
+
+
+## Ссылка на ПР
+
+https://github.com/jull04/movies-explorer-frontend/pull/2
