@@ -2,6 +2,7 @@ import './Register.css';
 import { Link } from 'react-router-dom'
 import useFormValidation from '../../hooks/useFormValidation';
 import { useEffect } from "react";
+import { EmailRegex } from "../../utils/constants";
 
 function Register({ onRegister, isLoading, isError, setError }) {
 
@@ -37,6 +38,7 @@ function Register({ onRegister, isLoading, isError, setError }) {
           value={values.name ? values.name : ''}
           required
           onChange={handleChange}
+          pattern={EmailRegex}
         />
         <span className='register__error'>{errors.name}</span>
       </label>

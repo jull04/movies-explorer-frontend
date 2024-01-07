@@ -3,7 +3,7 @@ import './SearchForm.css';
 import useFormValidation from '../../hooks/useFormValidation';
 import { useState, useEffect } from "react";
 
-function SearchForm({ searchMovies, isCheck, inputSearch, setIsCheck, movies, filter}) {
+function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter}) {
 
   const {handleChange, reset, values, isValid} = useFormValidation();
   const [searchError, setSearchError] = useState("");
@@ -55,15 +55,12 @@ function SearchForm({ searchMovies, isCheck, inputSearch, setIsCheck, movies, fi
         </input>
         <button 
           className='search__button'
-          // {`search__button ${isValid ? '' : 'search__button_disabled'}`}
           type='submit'
-          // disabled={!isValid}
           >Поиск</button>
       </form>
       <span className='input__error'>{searchError}</span>
       <div className='search__filter-container'>
         <FilterCheckbox
-          isCheck={isCheck}
           changeShort={changeShort} 
         />
       </div>
