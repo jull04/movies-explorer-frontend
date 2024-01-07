@@ -18,6 +18,7 @@
   margin: 18px;
   display: flex;
   justify-content: space-between;
+  height: 18px;
 }
 
 @media  screen and (max-width: 768px) {
@@ -33,11 +34,16 @@
   font-weight: 500;
   line-height: 18px;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 240px;
 }
 
 @media  screen and (max-width: 768px) {
   .movie-title {
     font-size: 12px;
+    width: 224px;
   }
 }
 
@@ -60,8 +66,9 @@
 
 .movie-image {
   height: 200px;
-  background-image: url(../../images/film.png);
+  width: 360px;
   cursor: pointer;
+  background-size: cover;
 }
 
 @media  screen and (max-width: 768px) {
@@ -96,6 +103,13 @@
 
 .movie-button-saved {
   background-image: url(../../images/saved-button.svg);
+  width: 100px;
+  height: 29px;
+  border-radius: 30px;
+  border: none;
+  margin:  auto;
+  cursor: pointer;
+  padding: 0;
 }
 
 .movie-delete-button {

@@ -92,3 +92,18 @@
     font-size: 11px;
   }
 }
+
+.input__error {
+  color: #FF004D;
+  font-size: 10px;
+}
+
+.search__button_disabled {
+  background-color: white;
+  color: black;
+  cursor: initial;
+}
+
+.search__button_disabled:hover {
+  opacity: 1;
+}

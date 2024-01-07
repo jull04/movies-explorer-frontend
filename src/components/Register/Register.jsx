@@ -1,10 +1,21 @@
 import './Register.css';
 import { Link } from 'react-router-dom'
 import useFormValidation from '../../hooks/useFormValidation';
+import { useEffect } from "react";
 
-function Register() {
+function Register({ onRegister, isLoading, isError, setError }) {
 
   const {handleChange, values, errors, isValid} = useFormValidation();
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onRegister(values.name, values.email, values.password);
+  }
+
+  useEffect(() => {
+    setError(false)
+  }, [setError, values]) 
+
 
   return (
     <section className='register'>
@@ -12,7 +23,7 @@ function Register() {
         <div className='header__logo header__logo-min'></div>
       </Link>
       <h1 className='register__title'>Добро пожаловать!</h1>
-      <form  className='register__form' name='profile-edit' isValid={isValid} noValidate>
+      <form  className='register__form' name='profile-edit' onSubmit={handleSubmit} isValid={isValid} noValidate>
       <label className='register__label'>
         <span className='register__span'>Имя</span>
         <input 
@@ -59,10 +70,13 @@ function Register() {
         />
         <span className='register__error'>{errors.password}</span>  
       </label>
+      {isError && <div className='profile__succes'>Ошибка</div>}
       <button 
         className={`register__submit ${isValid ? '' : 'register__submit_disabled'}`}
         type='submit'
-        disabled={!isValid}>Зарегистрироваться</button>
+        disabled={!isValid}>
+          {isLoading ? "Регистрация..." : "Зарегистрироваться"}
+      </button>
       </form>
       <p className='register__subtitle'>Уже зарегестрированы?
         <Link to='/signin' className='register__signin'>Войти</Link>
