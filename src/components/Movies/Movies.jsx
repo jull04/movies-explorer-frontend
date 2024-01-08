@@ -45,8 +45,8 @@ function Movies({ savedMovies, onSave, onDelete }) {
   }
 
   useEffect(() => {
-    if (localStorage.allmovies && localStorage.shorts && localStorage.movie) {
-      const movies = JSON.parse(localStorage.allmovies)
+    if (localStorage.apimovies && localStorage.shorts && localStorage.movie) {
+      const movies = JSON.parse(localStorage.apimovies)
       const search = JSON.parse(localStorage.movie)
       const isCheck = JSON.parse(localStorage.shorts)
       setinputSearch(search)
@@ -63,12 +63,12 @@ function Movies({ savedMovies, onSave, onDelete }) {
       <SearchForm
         searchMovies={searchMovies}
         movies={apiMovies}
-        inputSearch={inputSearch}
         isCheck={isCheck}
         savedMovies={savedMovies}
         firstEntrance={firstEntrance}
         filter={filter}
         setIsCheck={setIsCheck}
+        inputSearch={inputSearch}
       />
       <MoviesCardList
         savedMovies={savedMovies}

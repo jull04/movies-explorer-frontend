@@ -2,7 +2,7 @@ import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate, useLocation } from "react-router-dom";
 import Movies from '../Movies/Movies';
 import Error from '../Error/Error';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -13,6 +13,7 @@ import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import { useEffect, useState } from "react";
 import { register, authorize, checkToken, getInfo, setUserInfo, getMovies, deleteMovie, saveMovie} from "../../utils/MainApi.js"
 import CurrentUserContext from '../../context/CurrentUserContext';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
   const [isEditProfile, setEditProfile] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [isError, setError] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([])
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isCheckToken, setIsCheckToken] = useState(true)
   
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -44,12 +46,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (loggedIn) {
-      const token = localStorage.getItem("token");
-      Promise.all([getInfo(token), getMovies(token)])
+    if (localStorage.token) {
+      Promise.all([getInfo(localStorage.token), getMovies(localStorage.token)])
       .then(([dataUser, dataMovies]) => {
         setCurrentUser(dataUser);
         setSavedMovies(dataMovies)
+        setLoggedIn(true);
+        setIsCheckToken(false)
       }) 
       .catch((error => console.log(`Ошибка ${error}`)))
     }
@@ -60,22 +63,21 @@ function App() {
     setLoggedIn(true);
   }
 
-  // Проверка токена при загрузке страницы
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    // если у пользователя есть токен в localStorage, 
-    // функция проверит, действующий он или нет
-    if (token){
-      checkToken(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            navigate('/', {replace: true})
-          }
-        })
-        .catch((error => console.log(`Ошибка проверки токена ${error}`)))
-    }
-  }, []);
+  // // Проверка токена при загрузке страницы
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   // если у пользователя есть токен в localStorage, 
+  //   // функция проверит, действующий он или нет
+  //   if (token){
+  //     checkToken(token)
+  //       .then((res) => {
+  //         if (res) {
+  //           setLoggedIn(true);
+  //         }
+  //       })
+  //       .catch((error => console.log(`Ошибка проверки токена ${error}`)))
+  //   }
+  // }, []);
 
     //регистрация
   function handleRegister(name, email, password) {
@@ -94,12 +96,10 @@ function App() {
   //авторизация
   function handleLogin(email, password) {
     authorize(email, password)
-    .then((data) => {
-      if (data.token) {
-        handleLoggedIn();
-        localStorage.setItem("token", data.token);
+    .then(res => { 
+        localStorage.setItem("token", res.token);
+        setLoggedIn(true);
         navigate('/movies', {replace: true})
-      }
     })
     .catch((error) => {
       setLoggedIn(false);
@@ -162,8 +162,9 @@ function App() {
   }
   
   return (
-    <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
+    {/* {isCheckToken ? <Preloader /> : */}
+    <CurrentUserContext.Provider value={currentUser}>
       {header && (
           <Header
             loggedIn={loggedIn}
@@ -204,6 +205,7 @@ function App() {
           />}
         />
         <Route path='/signup' element={
+          loggedIn ? <Navigate to='/movies' replace /> :
           <Register
             onRegister={handleRegister}
             isLoading={isLoading}
@@ -212,6 +214,7 @@ function App() {
           />
         }/>
         <Route path='/signin' element={
+          loggedIn ? <Navigate to='/movies' replace /> :
           <Login
             onLogin={handleLogin}
             isLoading={isLoading}
@@ -222,8 +225,9 @@ function App() {
         <Route path='*' element={<Error/>}/>
       </Routes>
       {footer && <Footer />}
-    </div>
     </CurrentUserContext.Provider>
+    
+    </div>
   );
 }
 

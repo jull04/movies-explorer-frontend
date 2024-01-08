@@ -1,10 +1,10 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ changeShort }) {
+function FilterCheckbox({ changeShort, isCheck }) {
   return (
     <div>
       <label class="checkbox" for="checkbox">
-        <input class="checkbox__inp" type="checkbox" id="checkbox" onChange={() => changeShort()}/>
+        <input class="checkbox__inp" type="checkbox" id="checkbox" checked={isCheck} onChange={(evt) => changeShort(evt.target.checked)}/>
         <span class="checkbox__inner">
           Короткометражки
         </span>

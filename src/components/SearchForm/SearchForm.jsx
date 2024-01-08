@@ -2,19 +2,21 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 import useFormValidation from '../../hooks/useFormValidation';
 import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 
-function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter}) {
+function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter, inputSearch}) {
 
   const {handleChange, reset, values, isValid} = useFormValidation();
   const [searchError, setSearchError] = useState("");
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    // Восстанавливаем значение поиска из локального хранилища при загрузке компонента
-    const savedSearchValue = localStorage.getItem('searchValue');
-    if (savedSearchValue) {
-      reset({ search: savedSearchValue });
+    if ((pathname === '/saved-movies' && movies.length === 0)) {
+      reset({ search: '' })
+    } else {
+      reset({ search: inputSearch })
     }
-  }, []);
+  }, [inputSearch])
 
 
   function handleSubmit(evt) {
@@ -46,7 +48,7 @@ function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter}) {
           placeholder='Фильм'
           type='text'
           name='search'
-          value={values.search || ""}
+          value={values.search || ''}
           onChange={(evt) => {
             handleChange(evt)
             setSearchError('')
@@ -62,6 +64,7 @@ function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter}) {
       <div className='search__filter-container'>
         <FilterCheckbox
           changeShort={changeShort} 
+          isCheck={isCheck}
         />
       </div>
     </section>

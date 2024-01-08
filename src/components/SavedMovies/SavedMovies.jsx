@@ -37,11 +37,11 @@ function SavedMovies({ savedMovies, onDelete }) {
   return (
     <section className='saved-movies'>
       <SearchForm
+        isCheck={isCheck}
         movies={savedMovies}
         setIsCheck={setIsCheck}
         searchMovies={searchMovies}
         searchedMovie={searchedMovie}
-        isCheck={isCheck}
         firstEntrance={firstEntrance}
         filter={filter}
       />

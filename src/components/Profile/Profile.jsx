@@ -1,8 +1,9 @@
 import './Profile.css';
 import { Link } from 'react-router-dom'
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFormValidation from '../../hooks/useFormValidation';
 import CurrentUserContext from "../../context/CurrentUserContext";
+import { EmailRegex } from "../../utils/constants";
 
 function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClickEdit, isSuccess, isError}) {
 
@@ -10,9 +11,17 @@ function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClick
 
   const {handleChange, values, errors, isValid, reset} = useFormValidation();
 
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
   useEffect(() => {
     reset({ name: currentUser.name, email: currentUser.email })
   }, [currentUser])
+
+  useEffect(() => {
+    currentUser.name !== values.name && currentUser.email !== values.email
+      ? setBtnDisabled(false)
+      : setBtnDisabled(true);
+  }, [currentUser, values]);
 
   function handleSubmit(evt){
     evt.preventDefault();
@@ -33,7 +42,7 @@ function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClick
           id='name' 
           name='name' 
           type='text'
-          value={values.name}
+          value={values.name || ""}
           required
           onChange={handleChange}
           disabled={!isEditProfile}
@@ -48,10 +57,11 @@ function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClick
           id='email'
           name='email'
           type='email'
-          value={values.email}
+          value={values.email || ""}
           required
           onChange={handleChange}
           disabled={!isEditProfile}
+          pattern={EmailRegex}
         />
       </label>  
       <span className='profile__error'>{errors.email}</span>  
@@ -60,14 +70,14 @@ function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClick
       {!isEditProfile && (
       <>
       <button type='button' className='profile__edit-button' onClick={handleClickEdit}>Редактировать</button>
-      <Link to='/signin' className='profile__logout' onClick={onLogout} >Выйти из аккаунта</Link>
+      <Link to='/' className='profile__logout' onClick={onLogout} >Выйти из аккаунта</Link>
       </> 
       )}
       {isEditProfile && (
       <button 
-        disabled={!isValid} 
+        disabled={!isValid || btnDisabled} 
         type='submit'  
-        className={`profile__submit ${isValid ? '' : 'profile__submit_disabled'}`}
+        className={`profile__submit ${!isValid || btnDisabled ? 'profile__submit_disabled' : ''}`}
         >
           {isLoading ? "Сохранение..." : "Сохранить"}
       </button>

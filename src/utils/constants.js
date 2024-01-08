@@ -1,4 +1,4 @@
-const BigScreen = 1440
+const BigScreen = 1276
 const NormalScreen = 1024
 const SmallScreen = 672
 const InitOneScreen = 12
