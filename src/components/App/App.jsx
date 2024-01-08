@@ -163,7 +163,7 @@ function App() {
   
   return (
     <div className="page">
-    {/* {isCheckToken ? <Preloader /> : */}
+    {isCheckToken ? <Preloader /> :
     <CurrentUserContext.Provider value={currentUser}>
       {header && (
           <Header
@@ -226,7 +226,7 @@ function App() {
       </Routes>
       {footer && <Footer />}
     </CurrentUserContext.Provider>
-    
+    }
     </div>
   );
 }
