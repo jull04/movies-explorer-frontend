@@ -52,7 +52,6 @@ function App() {
         setCurrentUser(dataUser);
         setSavedMovies(dataMovies)
         setLoggedIn(true);
-        setIsCheckToken(false)
       }) 
       .catch((error => console.log(`Ошибка ${error}`)))
     }
@@ -63,21 +62,27 @@ function App() {
     setLoggedIn(true);
   }
 
-  // // Проверка токена при загрузке страницы
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   // если у пользователя есть токен в localStorage, 
-  //   // функция проверит, действующий он или нет
-  //   if (token){
-  //     checkToken(token)
-  //       .then((res) => {
-  //         if (res) {
-  //           setLoggedIn(true);
-  //         }
-  //       })
-  //       .catch((error => console.log(`Ошибка проверки токена ${error}`)))
-  //   }
-  // }, []);
+  // Проверка токена при загрузке страницы
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    // если у пользователя есть токен в localStorage, 
+    // функция проверит, действующий он или нет
+    if (token){
+      checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setIsCheckToken(false)
+          }
+        })
+        .catch((error => console.log(`Ошибка проверки токена ${error}`)))
+    }
+    else {
+      setLoggedIn(false)
+      setIsCheckToken(false)
+      localStorage.clear()
+    }
+  }, []);
 
     //регистрация
   function handleRegister(name, email, password) {
