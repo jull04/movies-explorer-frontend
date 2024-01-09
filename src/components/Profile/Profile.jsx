@@ -18,7 +18,7 @@ function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClick
   }, [currentUser])
 
   useEffect(() => {
-    currentUser.name !== values.name && currentUser.email !== values.email
+    currentUser.name !== values.name || currentUser.email !== values.email
       ? setBtnDisabled(false)
       : setBtnDisabled(true);
   }, [currentUser, values]);

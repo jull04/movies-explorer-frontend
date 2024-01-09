@@ -4,7 +4,7 @@ import useFormValidation from '../../hooks/useFormValidation';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom'
 
-function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter, inputSearch}) {
+function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter, inputSearch, firstEntrance}) {
 
   const {handleChange, reset, values, isValid} = useFormValidation();
   const [searchError, setSearchError] = useState("");
@@ -17,7 +17,6 @@ function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter, inputSe
       reset({ search: inputSearch })
     }
   }, [inputSearch])
-
 
   function handleSubmit(evt) {
     evt.preventDefault()
@@ -65,6 +64,7 @@ function SearchForm({ searchMovies, isCheck, setIsCheck, movies, filter, inputSe
         <FilterCheckbox
           changeShort={changeShort} 
           isCheck={isCheck}
+          firstEntrance={firstEntrance}
         />
       </div>
     </section>

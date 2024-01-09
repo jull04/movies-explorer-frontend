@@ -29,6 +29,7 @@ function Movies({ savedMovies, onSave, onDelete }) {
   async function searchMovies(search) {
     try {
       if (apiMovies.length === 0) {
+        setFirstEntrance(false)
         setIsLoading(true);
         const res = await getMovies();
         setApiMovies(res);

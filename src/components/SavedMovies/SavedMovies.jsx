@@ -26,7 +26,7 @@ function SavedMovies({ savedMovies, onDelete }) {
   }
 
   useEffect(() => {
-    if (savedMovies.length === 0) {
+    if (savedMovies.length === 0 || searchedMovie.length === 0) {
       setFirstEntrance(true)
     } else {
       setFirstEntrance(false)

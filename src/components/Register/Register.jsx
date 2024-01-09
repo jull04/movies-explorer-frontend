@@ -38,7 +38,6 @@ function Register({ onRegister, isLoading, isError, setError }) {
           value={values.name ? values.name : ''}
           required
           onChange={handleChange}
-          pattern={EmailRegex}
         />
         <span className='register__error'>{errors.name}</span>
       </label>
@@ -53,6 +52,7 @@ function Register({ onRegister, isLoading, isError, setError }) {
           value={values.email ? values.email : ''}
           required
           onChange={handleChange}
+          pattern={EmailRegex}
         />
         <span className='register__error'>{errors.email}</span>  
       </label>

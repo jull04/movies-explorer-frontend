@@ -57,11 +57,6 @@ function App() {
     }
   }, [loggedIn])
 
-  //Изменение статуса логина
-  function handleLoggedIn() {
-    setLoggedIn(true);
-  }
-
   // Проверка токена при загрузке страницы
   useEffect(() => {
     const token = localStorage.getItem('token');
