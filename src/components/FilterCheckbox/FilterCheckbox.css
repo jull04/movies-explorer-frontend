@@ -1,5 +1,6 @@
 .checkbox {
   display: inline-block;
+  cursor: pointer;
 }
 
 .checkbox__inp {
@@ -51,4 +52,8 @@
 .checkbox__inp:checked+.checkbox__inner::after {
   background-color: white;
   left: 20px;
+}
+
+.checkbox_disabled {
+  pointer-events: none;
 }

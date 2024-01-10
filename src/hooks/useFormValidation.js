@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useCallback } from "react";
 
 function useFormValidation() {
   const [values, setValues ] = useState({});
@@ -22,8 +22,19 @@ function useFormValidation() {
     setIsValid(form.checkValidity())
   }
 
+  function reset(data = {}) {
+    setValues(data)
+    setErrors({})
+    setIsValid(false)
+  }
 
-  return {handleChange, values, errors, isValid}
+  const setValue = useCallback((name, value) => {
+    setValues((oldValues) => {
+      return {...oldValues, [name]: value,}
+    })
+  }, [])
+
+  return {handleChange, values, errors, isValid, reset, setValue}
 }
 
 export default useFormValidation

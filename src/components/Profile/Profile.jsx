@@ -1,26 +1,37 @@
 import './Profile.css';
 import { Link } from 'react-router-dom'
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFormValidation from '../../hooks/useFormValidation';
+import CurrentUserContext from "../../context/CurrentUserContext";
+import { EmailRegex } from "../../utils/constants";
 
-function Profile() {
+function Profile({ onUpdateUser, onLogout, isLoading, isEditProfile, handleClickEdit, isSuccess, isError}) {
 
-  const {handleChange, values, errors, isValid} = useFormValidation();
+  const currentUser = useContext(CurrentUserContext); 
 
-  const [isEditProfile, setEditProfile] = useState(false);
+  const {handleChange, values, errors, isValid, reset} = useFormValidation();
 
-  const handleClickEdit = () => {
-    setEditProfile(true);
-  };
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const handleClickSave = () => {
-    setEditProfile(false);
-  };
+  useEffect(() => {
+    reset({ name: currentUser.name, email: currentUser.email })
+  }, [currentUser])
+
+  useEffect(() => {
+    currentUser.name !== values.name || currentUser.email !== values.email
+      ? setBtnDisabled(false)
+      : setBtnDisabled(true);
+  }, [currentUser, values]);
+
+  function handleSubmit(evt){
+    evt.preventDefault();
+    onUpdateUser(values.name, values.email) 
+  }
 
   return (
     <section className='profile'>
-      <h1 className='profile__title'>Привет, Юля!</h1>
-      <form  className='profile__form' name='profile-edit' isValid={isValid} noValidate>
+      <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
+      <form  className='profile__form' name='profile-edit' onSubmit={handleSubmit} noValidate>
       <label className='profile__label'>
         <span className='profile__span'>Имя</span>
         <input 
@@ -31,7 +42,7 @@ function Profile() {
           id='name' 
           name='name' 
           type='text'
-          value={values.name ? values.name : ''}
+          value={values.name || ""}
           required
           onChange={handleChange}
           disabled={!isEditProfile}
@@ -46,25 +57,29 @@ function Profile() {
           id='email'
           name='email'
           type='email'
-          value={values.email ? values.email : ''}
+          value={values.email || ""}
           required
           onChange={handleChange}
           disabled={!isEditProfile}
+          pattern={EmailRegex}
         />
       </label>  
       <span className='profile__error'>{errors.email}</span>  
+      {isSuccess && <div className='profile__succes'>Профиль успешно отредактирован!</div>}
+      {isError && <div className='profile__succes'>Ошибка редактирования профиля</div>}
       {!isEditProfile && (
       <>
-      <button className='profile__edit-button' onClick={handleClickEdit}>Редактировать</button>
-      <Link to='/signin' className='profile__logout'>Выйти из аккаунта</Link>
+      <button type='button' className='profile__edit-button' onClick={handleClickEdit}>Редактировать</button>
+      <Link to='/' className='profile__logout' onClick={onLogout} >Выйти из аккаунта</Link>
       </> 
       )}
       {isEditProfile && (
       <button 
-        disabled={!isValid} 
+        disabled={!isValid || btnDisabled} 
         type='submit'  
-        onClick={handleClickSave}
-        className={`profile__submit ${isValid ? '' : 'profile__submit_disabled'}`}>Cохранить
+        className={`profile__submit ${!isValid || btnDisabled ? 'profile__submit_disabled' : ''}`}
+        >
+          {isLoading ? "Сохранение..." : "Сохранить"}
       </button>
       )}
       </form>

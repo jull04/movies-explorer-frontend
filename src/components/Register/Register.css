@@ -102,11 +102,17 @@
 
 .register__submit_disabled {
   background-color: white;
-  color: black
+  color: black;
+  cursor: initial;
+  opacity: 1;
 }
 
 .register__submit:hover {
   opacity: 0.7;
+}
+
+.register__submit_disabled:hover {
+  opacity: 1;
 }
 
 .register__subtitle {

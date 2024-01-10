@@ -110,6 +110,10 @@
   cursor: default;
 }
 
+.register__submit_disabled:hover {
+  opacity: 1;
+}
+
 .register__submit:hover {
   opacity: 0.7;
 }

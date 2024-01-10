@@ -2,8 +2,7 @@ import './Header.css';
 import { Link,  useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
-function Header() {
-  const [loggedIn, setloggedIn] = useState(true)
+function Header({ loggedIn }) {
   const [menuActive, setMenuActive] = useState(false)
   const { pathname } = useLocation();
 
